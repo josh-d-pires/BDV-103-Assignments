@@ -1,0 +1,46 @@
+{
+  "name": "assignment-template",
+  "version": "1.0.0",
+  "description": "This is a template repository for the first assignment in BVD 103 at McMaster Continuing Education.",
+  "main": "src/server.ts",
+  "scripts": {
+    "generate": "npx tsoa spec-and-routes && (sed -i.bak '1s/^/\\/\\/ @ts-nocheck\\n/' build/routes.ts && rm -f build/routes.ts.bak)",
+    "generate:full": "./generate-openapi.sh",
+    "start-server": "npm run generate && tsx run-server.ts",
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "lint": "npm run generate && eslint . --ext .ts",
+    "fix-lint": "npm run generate && eslint . --ext .ts --fix",
+    "type-check": "npm run generate && tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^5.0.0",
+    "@koa/router": "^15.3.1",
+    "koa": "^3.1.1",
+    "koa-bodyparser": "^4.4.1",
+    "koa-qs": "^3.0.0",
+    "koa2-swagger-ui": "^5.12.0",
+    "mongodb": "^7.0.0",
+    "tsoa": "^7.0.0-alpha.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/koa": "~2.15.0",
+    "@types/koa__cors": "~5.0.0",
+    "@types/koa__router": "^12.0.5",
+    "@types/koa-bodyparser": "^4.3.13",
+    "@types/koa-qs": "~2.0.3",
+    "@types/node": "^25.0.3",
+    "@types/swagger-ui-express": "^4.1.8",
+    "eslint": "^9.39.2",
+    "mongodb-memory-server": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.50.1",
+    "vitest": "^4.0.18"
+  }
+}
