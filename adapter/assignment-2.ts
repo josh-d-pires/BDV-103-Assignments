@@ -16,7 +16,7 @@ async function listBooks (filters?: Array<{ from?: number, to?: number }>): Prom
 }
 
 async function createOrUpdateBook (book: Book): Promise<BookID> {
-  const result = await fetch('http://localhost:3000/books', {
+  const result = await fetch('/api/books', {
     method: 'POST',
     body: JSON.stringify(book),
     headers: {
@@ -33,7 +33,7 @@ async function createOrUpdateBook (book: Book): Promise<BookID> {
 }
 
 async function removeBook (book: BookID): Promise<void> {
-  const result = await fetch(`http://localhost:3000/books/${book}`, { method: 'DELETE' });
+  const result = await fetch(`/api/books/${book}`, { method: 'DELETE' });
 
   if (!result.ok) {
     throw new Error('Failed to create or update book');

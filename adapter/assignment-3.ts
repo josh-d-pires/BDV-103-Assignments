@@ -39,7 +39,7 @@ async function listBooks (filters?: Filter[]): Promise<Book[]> {
   }).join('&') ?? '';
 
   // We then make the request
-  const result = await fetch(`http://localhost:3000/books?${query}`);
+  const result = await fetch(`/api/books?${query}`);
 
   if (result.ok) {
     // And if it is valid, we parse the JSON result and return it.

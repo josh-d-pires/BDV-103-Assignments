@@ -1,10 +1,11 @@
 {
-  "entryFile": "src/server.ts",
+  "entryFile": "run-server.ts",
   "noImplicitAdditionalProperties": "throw-on-extras",
   "controllerPathGlobs": ["src/**/*.route.ts"],
   "spec": {
     "outputDirectory": "build",
-    "specVersion": 3
+    "specVersion": 3,
+    "basePath": "/api"
   },
   "routes": {
     "routesDir": "build",

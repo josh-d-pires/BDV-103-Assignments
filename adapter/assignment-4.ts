@@ -33,7 +33,7 @@ async function removeBook (book: BookID): Promise<void> {
 }
 
 async function lookupBookById (book: BookID): Promise<Book> {
-  const result = await fetch(`http://localhost:3000/books/${book}`);
+  const result = await fetch(`/api/books/${book}`);
   if (result.ok) {
     return await result.json() as Book;
   } else {
@@ -45,14 +45,14 @@ export type ShelfId = string
 export type OrderId = string
 
 async function placeBooksOnShelf (bookId: BookID, numberOfBooks: number, shelf: ShelfId): Promise<void> {
-  const result = await fetch(`http://localhost:3000/warehouse/${bookId}/${shelf}/${numberOfBooks}`, { method: 'put' });
+  const result = await fetch(`/api/warehouse/${bookId}/${shelf}/${numberOfBooks}`, { method: 'put' });
   if (!result.ok) {
     throw new Error('Couldnt Place on Shelf');
   }
 }
 
 async function orderBooks (order: BookID[]): Promise<{ orderId: OrderId }> {
-  const result = await fetch('http://localhost:3000/order', {
+  const result = await fetch('/api/order', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ order })
@@ -64,7 +64,7 @@ async function orderBooks (order: BookID[]): Promise<{ orderId: OrderId }> {
 }
 
 async function findBookOnShelf (book: BookID): Promise<Array<{ shelf: ShelfId, count: number }>> {
-  const result = await fetch(`http://localhost:3000/warehouse/${book}`);
+  const result = await fetch(`/api/warehouse/${book}`);
   if (result.ok) {
     const results = (await result.json()) as Record<ShelfId, number>;
     const shelfArray: Array<{ shelf: ShelfId, count: number }> = [];
@@ -81,7 +81,7 @@ async function findBookOnShelf (book: BookID): Promise<Array<{ shelf: ShelfId, c
 }
 
 async function fulfilOrder (order: OrderId, booksFulfilled: Array<{ book: BookID, shelf: ShelfId, numberOfBooks: number }>): Promise<void> {
-  const result = await fetch(`http://localhost:3000/fulfil/${order}`, {
+  const result = await fetch(`/api/fulfil/${order}`, {
     method: 'put',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(booksFulfilled)
@@ -92,7 +92,7 @@ async function fulfilOrder (order: OrderId, booksFulfilled: Array<{ book: BookID
 }
 
 async function listOrders (): Promise<Array<{ orderId: OrderId, books: Record<BookID, number> }>> {
-  const result = await fetch('http://localhost:3000/order');
+  const result = await fetch('/api/order');
   if (result.ok) {
     return await result.json() as Array<{ orderId: OrderId, books: Record<BookID, number> }>;
   } else {
